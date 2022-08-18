@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
+
+Route::get('/', 'KanbanBoardController@index')->name('index');
+Route::post('store', 'KanbanBoardController@store')->name('store');
+Route::post('status_update', 'KanbanBoardController@status_update')->name('status_update');
