@@ -16,7 +16,7 @@ class CreateKanbanBoardsTable extends Migration
         Schema::create('kanban_boards', function (Blueprint $table) {
             $table->id();
             $table->text('task');
-            $table->integer('position');
+            $table->double('position');
             $table->enum('status', ['todo', 'inprogress', 'done'])->default('todo');
             $table->timestamps();
         });

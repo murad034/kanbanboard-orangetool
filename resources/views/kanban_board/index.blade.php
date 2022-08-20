@@ -36,8 +36,10 @@
 
             <div class="container">
                 <div class="kanban-heading">
-                    <input class="task" type="text" id="input_kanban_board" name="input_kanban_board" placeholder="Write your task...">
-                    <button id="insert_todo" class="btn">Add</button>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="input_kanban_board" name="input_kanban_board" placeholder="Write your task...">
+                        <button type="button" id="insert_todo" class="btn btn-primary btn-lg">Add</button>
+                    </div>
                 </div>
                 <span id="kanban-body">
                     @include('kanban_board.include.list_data')

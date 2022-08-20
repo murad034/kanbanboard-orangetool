@@ -14,6 +14,7 @@ body {
     flex-direction: row;
     justify-content: center;
     font-family: sans-serif;
+    margin-top: 3%;
 }
 
 .kanban-board {
@@ -23,16 +24,20 @@ body {
     font-family: sans-serif;
 }
 
-.kanban-heading-text {
-    font-size: 1.8rem;
-    background-color: tomato;
-    padding: 0.8rem 1.7rem;
-    border-radius: 0.5rem;
-    margin: 1rem;
+.kanban-heading .form-control{
+    display: inline-block;
+    height: 50px;
+    margin-left: -30%;
+    font-size: 18px;
+}
+.kanban-heading .btn-lg {
+    padding: 0.9rem 2rem;
+    font-size: 2.05rem;
+    line-height: 1.5;
+    border-radius: 0.3rem;
 }
 
-.kanban-block,
-.create-new-task-block {
+.kanban-block {
     padding: 0.6rem;
     width: 30.5%;
     min-width: 14rem;
@@ -41,7 +46,7 @@ body {
 }
 
 #todo {
-    background-color: #fec6d1;
+    background-color: #007bff;
 }
 
 #inprogress {
@@ -49,84 +54,9 @@ body {
 }
 
 #done {
-    background-color: #018b01;
+    background-color: #28a745;
 }
 
-.task {
-    background-color: white;
-    margin: 0.2rem 0rem 0.3rem 0rem;
-    border: 0.1rem solid black;
-    border-radius: 0.2rem;
-    padding: 0.5rem 0.2rem 0.5rem 2rem;
-}
-
-#task-button {
-    margin: 0.2rem 0rem 0.1rem 0rem;
-    background-color: white;
-    border-radius: 0.2rem;
-    width: 100%;
-    border: 0.25rem solid black;
-    padding: 0.5rem 2.7rem;
-    border-radius: 0.3rem;
-    font-size: 1rem;
-}
-
-.create-new-task-block {
-    display: none;
-    /* display: flex; */
-    background: #ffaf00;
-    width: 64.4%;
-    flex-direction: column;
-}
-
-.form-row {
-    display: flex;
-    flex-direction: row;
-    margin: 0.2rem;
-}
-
-.form-row-label {
-    width: 15%;
-    padding: 0.2rem;
-    padding-right: 0.5rem;
-    border: 0.1rem solid black;
-    border-right: 0;
-    border-radius: 0.2rem 0rem 0rem 0.2rem;
-}
-
-.form-row-input {
-    border: 0.1rem solid black;
-    border-radius: 0rem 0.2rem 0.2rem 0rem;
-    width: 85%;
-}
-
-textarea {
-    resize: none;
-}
-
-.form-row-buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 0.2rem;
-}
-
-#edit-button,
-#save-button,
-#cancel-button {
-    margin: 0.2rem 0rem 0.1rem 0rem;
-    background-color: white;
-    border-radius: 0.2rem;
-    width: 49.2%;
-    border: 0.25rem solid black;
-    padding: 0.5rem 2.7rem;
-    border-radius: 0.3rem;
-    font-size: 1rem;
-}
-
-#edit-button {
-    display: none;
-}
 .btn{
     display: inline-block;
     margin-bottom: 0;
@@ -146,17 +76,16 @@ textarea {
 }
 
 #todo_list, #inprogress_list , #done_list{
-    width: 142px;
     min-height: 20px;
     list-style-type: none;
-    margin: 0;
-    padding: 5px 0 0 74px;
+    margin-left: 5px;
     float: left;
     margin-right: 10px;
+    width: 300px;
 }
 #todo_list li, #inprogress_list li, #done_list li {
-    margin: 0 5px 5px 5px;
+    margin-top: 6px;
     padding: 5px;
     font-size: 1.2em;
-    width: 120px;
+    width: 200px;
 }

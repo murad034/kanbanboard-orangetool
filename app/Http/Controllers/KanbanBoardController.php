@@ -20,7 +20,11 @@ class KanbanBoardController extends Controller
         if(empty($input_kanban_board)){
             return false;
         }
-        $allCount = KanbanBoard::where('status', 'todo')->count();
+        $allCount = KanbanBoard::latest('id')->first();
+        if(!empty($allCount)){
+            $allCount = $allCount->id;
+        }
+
         $kan_board = new KanbanBoard();
         $kan_board->task = $input_kanban_board;
         $kan_board->status = "todo";
@@ -36,32 +40,32 @@ class KanbanBoardController extends Controller
     public function status_update(Request $request){
         $kanboard = $request->kanboard;
         $entityId = $request->entityId;
-        $endPos =(int) $request->endPos;
+        $endPos = $request->endPos;
         $endPos = $endPos+1;
-        $startPos =(int) $request->startPos;
 
         if(empty($kanboard) || empty($entityId) || empty($endPos)){
             return false;
         }
 
-        $allInfos = KanbanBoard::where([['status', $kanboard], ['position','>', $endPos]])->orderBy('id', 'asc')->get();
-        $allCount = count($allInfos);
+        $crnt_kanban = KanbanBoard::where('id', $entityId)->first();
+        $allCount = KanbanBoard::where([['status', $kanboard]])->count();
         if($allCount>0){
-            $i=$endPos+1;
-            foreach ($allInfos as $allInfo){
-                KanbanBoard::where('id', $allInfo->id)->update([
-                    'position' => $i
-                ]);
-                $i++;
+            if($endPos == 1){
+                $previous = KanbanBoard::where([['status', $kanboard]])->orderBy('position', 'asc')->limit(1)->offset($endPos-1)->first();
+                $position = (double) $previous->position - 0.1;
+            }elseif ($endPos > $allCount){
+                $next = KanbanBoard::where([['status', $kanboard]])->orderBy('position', 'asc')->limit(1)->offset($endPos-2)->first();
+                $position = (double) $next->position + 0.1;
+            }else{
+                $previous = KanbanBoard::where([['status', $kanboard]])->orderBy('position', 'asc')->limit(1)->offset($endPos-2)->first();
+                $next = KanbanBoard::where([['status', $kanboard]])->orderBy('position', 'asc')->limit(1)->offset($endPos-1)->first();
+                $position =(double) ($previous->position + $next->position)/2;
             }
+            $crnt_kanban->position = $position;
         }
+        $crnt_kanban->status = $kanboard;
 
-
-        KanbanBoard::where('id', $entityId)->update([
-            'status' => $kanboard,
-            'position' => $endPos
-        ]);
-
+        $crnt_kanban->save();
 
         $data['todo_lists'] = KanbanBoard::where('status', 'todo')->orderBy('position', 'asc')->get();
         $data['inprogress_lists'] = KanbanBoard::where('status', 'inprogress')->orderBy('position', 'asc')->get();
